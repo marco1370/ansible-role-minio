@@ -1,0 +1,13 @@
+---
+go_arch_map:
+  x86_64: 'amd64'
+  aarch64: 'arm64'
+  armv7l: 'arm'
+  armv6l: 'arm'
+
+go_arch: "{{ go_arch_map[ansible_architecture] | default(ansible_architecture) }}"
+
+minio_bin_directory: /usr/local/bin/
+minio_tmp_directory: /tmp/
+minio_system_user: minio-user
+minio_system_group: "{{ minio_system_user }}"

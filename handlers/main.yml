@@ -1,0 +1,7 @@
+---
+- name: Restart minio
+  systemd:
+    name: minio.service
+    daemon_reload: true
+    state: restarted
+    enabled: true

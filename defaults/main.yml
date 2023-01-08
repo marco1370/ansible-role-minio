@@ -1,0 +1,10 @@
+---
+minio_version: 'latest'
+minio_root_user: 'minioadmin'
+minio_root_password: 'minioadmin'
+minio_opts: []
+minio_enable_browser: true
+minio_server_url: []
+minio_extra_env: []
+minio_storage_dir: /var/minio
+minio_certs_dir: /etc/ssl/minio/

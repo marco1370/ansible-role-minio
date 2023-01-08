@@ -1,0 +1,22 @@
+---
+galaxy_info:
+  role_name: minio
+  namespace: minio
+  author: Anthony Dieperink
+  description: Ansible Role to install the MinIO binary
+  license: MIT
+  min_ansible_version: 2.10
+
+  platforms:
+    - name: Debian
+      versions:
+        - bullseye
+        - buster
+        - stretch
+
+  galaxy_tags:
+    - linux
+    - minio
+    - s3
+    - object
+    - storage

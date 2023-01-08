@@ -1,0 +1,35 @@
+---
+- block:
+    - name: Get latest release
+      ansible.builtin.uri:
+        url: "https://api.github.com/repos/minio/minio/releases/latest"
+        method: GET
+        return_content: true
+        status_code: 200
+        body_format: json
+        validate_certs: false
+        user: "{{ lookup('env', 'GH_USER') | default(omit) }}"
+        password: "{{ lookup('env', 'GH_TOKEN') | default(omit) }}"
+      no_log: "{{ not lookup('env', 'ANSIBLE_DEBUG') | bool }}"
+      register: _latest_release
+      until: _latest_release.status == 200
+      retries: 5
+      delay: 2
+
+    - name: Set minio version to "{{ _latest_release.json.tag_name }}"
+      ansible.builtin.set_fact:
+        minio_version: "{{ _latest_release.json.tag_name }}"
+  when: minio_version == "latest"
+
+- block:
+    - name: Get checksum list
+      ansible.builtin.set_fact:
+        __minio_checksums: "{{ lookup('url', 'https://dl.min.io/server/minio/release/linux-amd64/archive/minio.' + minio_version + '.sha256sum', wantlist=true) | list }}"
+      run_once: true
+
+    - name: Get checksum for "{{ go_arch }}" architecture
+      ansible.builtin.set_fact:
+        __minio_checksum: "{{ item.split(' ')[0] }}"
+      with_items: "{{ __minio_checksums }}"
+      when: "('minio.' + minio_version) in item"
+  when: minio_installed_version.stdout < minio_version

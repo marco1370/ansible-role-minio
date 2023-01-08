@@ -1,0 +1,20 @@
+---
+image:
+  name: python:3-slim-bullseye
+
+stages:
+  - quality
+  - security
+
+lint:
+  stage: quality
+  before_script:
+    - apt update && apt install ansible yamllint ansible-lint -y
+  script:
+    - set -e
+    - yamllint .
+    - ansible-lint .
+  allow_failure: true
+  only:
+    - branches
+    - merge_requests

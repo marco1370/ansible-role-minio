@@ -1,0 +1,8 @@
+---
+- name: Check minio version
+  ansible.builtin.shell: "{{ minio_bin_directory }}/minio --version | awk '{print $3}'"
+  args:
+    executable: /bin/bash
+  ignore_errors: true
+  changed_when: false
+  register: minio_installed_version
