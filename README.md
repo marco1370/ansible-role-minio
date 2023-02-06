@@ -6,7 +6,7 @@ Ansible role for deploying the MinIO binary and configure it
 **Put the file in your roles directory**
 ```yaml
 ---
-- src: https://gitlab.com/adieperi/ansible-role-minio.git
+- src: https://github.com/mohsenmirzaei1991/ansible-role-minio.git
   scm: git
   version: main
   name: ansible-role-minio
@@ -53,10 +53,3 @@ All variables which can be overridden are stored in [default/main.yml](default/m
           - --quiet
           - --anonymous
 ```
-## License
-
-This project is licensed under MIT License. See [LICENSE](/LICENSE) for more details.
-
-## Maintainers and Contributors
-
-- [Anthony Dieperink](https://gitlab.com/adieperi)
